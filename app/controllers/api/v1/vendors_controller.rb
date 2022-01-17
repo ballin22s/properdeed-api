@@ -9,9 +9,9 @@ module Api
         if params[:tag]
           @vendors = Vendor.tagged_with(params[:tag])
         else
-          @vendors = Vendor.includes(:vendor_addresses)
+          @vendors = Vendor.includes(:vendor_address)
         end
-        render json: @vendors, include: [vendor_addresses: {only: [:state_id, :city, :zip]}]
+        render json: @vendors, include: [vendor_address: {only: [:state_id, :city, :zip]}]
       end
 
       # POST /vendors
@@ -28,7 +28,7 @@ module Api
       # PUT /vendors/:id
       def update
         @vendor.update(vendor_params)
-        head :no_content
+        json_response(@vendor, 201)
       end
 
       # DELETE /vendors/:id
@@ -43,8 +43,8 @@ module Api
         # whitelist params
         params.require(:vendor).permit(
           :user_id, :company_name, :first_name, :last_name, :phone,
-          :email, :created_by, :all_services,
-          vendor_addresses_attributes: [ :id, :state_id, :city, :zip ]
+          :email, :created_by, :all_services, :permalink,
+          vendor_address_attributes: [ :id, :state_id, :city, :zip ]
         )
       end
 
