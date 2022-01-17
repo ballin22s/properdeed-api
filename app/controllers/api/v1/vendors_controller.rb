@@ -9,9 +9,9 @@ module Api
         if params[:tag]
           @vendors = Vendor.tagged_with(params[:tag])
         else
-          @vendors = Vendor.all
+          @vendors = Vendor.includes(:vendor_addresses)
         end
-        json_response(@vendors)
+        render json: @vendors, include: [vendor_addresses: {only: [:state_id, :city, :zip]}]
       end
 
       # POST /vendors
