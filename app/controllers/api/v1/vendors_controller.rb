@@ -7,7 +7,7 @@ module Api
       # GET /vendors
       def index
         if params[:tag]
-          @vendors = Vendor.tagged_with(params[:tag])
+          @vendors = Vendor.includes(:vendor_address).tagged_with(params[:tag])
         else
           @vendors = Vendor.includes(:vendor_address)
         end
@@ -34,7 +34,7 @@ module Api
       # DELETE /vendors/:id
       def destroy
         @vendor.destroy
-        head :no_content
+        json_response(@vendor, 200)
       end
 
       private
