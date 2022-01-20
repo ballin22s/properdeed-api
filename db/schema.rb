@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 2021_08_28_185801) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "properties", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "multi_unit", null: false
@@ -95,7 +98,6 @@ ActiveRecord::Schema.define(version: 2021_08_28_185801) do
     t.index ["city"], name: "index_vendor_addresses_on_city"
     t.index ["state_id"], name: "index_vendor_addresses_on_state_id"
     t.index ["zip"], name: "index_vendor_addresses_on_zip"
-    t.index [nil], name: "index_vendor_addresses_on_property_id"
   end
 
   create_table "vendors", force: :cascade do |t|

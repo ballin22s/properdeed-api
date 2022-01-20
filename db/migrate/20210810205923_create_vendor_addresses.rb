@@ -12,7 +12,6 @@ class CreateVendorAddresses < ActiveRecord::Migration[5.2]
       t.timestamps
     end
     
-    add_index :vendor_addresses, :property_id
     add_index :vendor_addresses, :state_id
     add_index :vendor_addresses, :city
     add_index :vendor_addresses, :zip
