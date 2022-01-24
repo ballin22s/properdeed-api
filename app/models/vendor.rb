@@ -4,7 +4,7 @@ class Vendor < ApplicationRecord
   has_many :service_tags, dependent: :destroy
   has_many :services, through: :service_tags
     
-  validates_presence_of :user_id, :first_name, :last_name, :phone
+  validates_presence_of :user_id
   
   accepts_nested_attributes_for :vendor_address, allow_destroy: true, reject_if: :all_blank  
 

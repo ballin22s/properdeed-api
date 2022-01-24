@@ -43,7 +43,8 @@ module Api
         # whitelist params
         params.require(:vendor).permit(
           :user_id, :company_name, :first_name, :last_name, :phone,
-          :email, :created_by, :all_services, :permalink,
+          :email, :created_by, :all_services, :permalink, :website,
+          :note,
           vendor_address_attributes: [ :id, :state_id, :city, :zip ]
         )
       end
