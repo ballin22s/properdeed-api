@@ -2,14 +2,15 @@ module Api
   module V1
     class VendorsController < ApplicationController
       before_action :authenticate_user!
+      before_action :current_user
       before_action :set_vendor, only: [:show, :update, :destroy]
   
       # GET /vendors
       def index
         if params[:tag]
-          @vendors = Vendor.includes(:vendor_address).tagged_with(params[:tag])
+          @vendors = Vendor.includes(:vendor_address).tagged_with(params[:tag]).where(user_id: @current_user.id)
         else
-          @vendors = Vendor.includes(:vendor_address)
+          @vendors = Vendor.includes(:vendor_address).where(user_id: @current_user.id)
         end
         render json: @vendors, include: [vendor_address: {only: [:state_id, :city, :zip]}]
       end
@@ -51,6 +52,10 @@ module Api
 
       def set_vendor
         @vendor = Vendor.find(params[:id])
+      end
+      
+      def current_user
+        @current_user = User.find_by(id: params[:user_id])
       end
     end
   end
