@@ -12,6 +12,10 @@ Rails.application.routes.draw do
       resources :services
       resources :vendors
       resources :vendor_addresses
+      resources :supports
     end
   end
+    
+  match '/help',   to: 'static_pages#help',   via: 'get'
+  match '/privacy',   to: 'static_pages#privacy',   via: 'get'
 end
