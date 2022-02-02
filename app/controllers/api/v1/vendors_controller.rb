@@ -8,9 +8,9 @@ module Api
       # GET /vendors
       def index
         if params[:tag]
-          @vendors = Vendor.includes(:vendor_address).tagged_with(params[:tag]).where(user_id: @current_user.id)
+          @vendors = Vendor.includes(:vendor_address).tagged_with(params[:tag]).where(user_id: @current_user&.id)
         else
-          @vendors = Vendor.includes(:vendor_address).where(user_id: @current_user.id)
+          @vendors = Vendor.includes(:vendor_address).where(user_id: @current_user&.id)
         end
         render json: @vendors, include: [vendor_address: {only: [:state_id, :city, :zip]}]
       end
