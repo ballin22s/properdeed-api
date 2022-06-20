@@ -13,6 +13,8 @@ Rails.application.routes.draw do
       resources :vendors
       resources :vendor_addresses
       resources :supports
+      resources :lists
+      resources :list_items
     end
   end
     
